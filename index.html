@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GR8MEOW STUDIOS // DEADMAN SWITCH ACTIVATED</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,400&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            black: '#030509',
+                            dark: '#080c14',
+                            card: 'rgba(12, 19, 32, 0.75)',
+                            border: 'rgba(0, 243, 255, 0.25)',
+                            cyan: '#00f3ff',
+                            magenta: '#ff0055',
+                            green: '#00ff66',
+                            yellow: '#ffb700',
+                            dim: '#4a5d78'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030509;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00f3ff;
+            box-shadow: 0 0 10px #00f3ff;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff0055;
+        }
+
+        /* Cyberpunk Clip-Paths */
+        .cyber-clip {
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+        .cyber-clip-sm {
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+        }
+        .cyber-clip-btn {
+            clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+        }
+        .cyber-corner-top-left {
+            position: relative;
+        }
+        .cyber-corner-top-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            border-top: 2px solid #00f3ff;
+            border-left: 2px solid #00f3ff;
+        }
+
+        /* Scanline CRT overlay */
+        .scanlines {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            ), linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.03),
+                rgba(0, 255, 0, 0.01),
+                rgba(0, 0, 255, 0.03)
+            );
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Glitch Animation Effects */
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+        .glitch-hover:hover {
+            animation: glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
+        }
+
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip: rect(0, 0, 0, 0);
+        }
+        .glitch-text::before {
+            left: -2px;
+            text-shadow: 2px 0 #ff0055;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: 2px;
+            text-shadow: -2px 0 #00f3ff;
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(20px, 9999px, 15px, 0); }
+            20% { clip: rect(50px, 9999px, 80px, 0); }
+            40% { clip: rect(10px, 9999px, 40px, 0); }
+            60% { clip: rect(70px, 9999px, 90px, 0); }
+            80% { clip: rect(30px, 9999px, 10px, 0); }
+            100% { clip: rect(60px, 9999px, 50px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(80px, 9999px, 10px, 0); }
+            20% { clip: rect(10px, 9999px, 60px, 0); }
+            40% { clip: rect(40px, 9999px, 20px, 0); }
+            60% { clip: rect(20px, 9999px, 70px, 0); }
+            80% { clip: rect(90px, 9999px, 30px, 0); }
+            100% { clip: rect(30px, 9999px, 80px, 0); }
+        }
+
+        /* Animated Scanbeam line */
+        @keyframes scanbeam {
+            0% { top: -10%; opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { top: 110%; opacity: 0; }
+        }
+        .scanbeam-line {
+            animation: scanbeam 3.5s ease-in-out infinite;
+        }
+
+        /* Pulsing Glow Effect */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 243, 255, 0.3), inset 0 0 15px rgba(0, 243, 255, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(0, 243, 255, 0.7), inset 0 0 25px rgba(0, 243, 255, 0.3); }
+        }
+        .neon-box-cyan {
+            animation: pulseGlow 4s infinite alternate;
+        }
+
+        /* Background Grid */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+        }
+
+        /* Spotlight Cursor Follower */
+        #cursor-glow {
+            pointer-events: none;
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.08) 0%, rgba(255, 0, 85, 0.03) 40%, transparent 70%);
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        /* Glassmorphism backdrop */
+        .cyber-glass {
+            background: rgba(8, 12, 20, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body class="bg-cyber-black text-gray-200 font-rajdhani selection:bg-cyber-cyan selection:text-black min-h-screen overflow-x-hidden relative">
+
+    <!-- Canvas Particle Network Overlay -->
+    <canvas id="cyber-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+    
+    <!-- Cursor Spotlight Light -->
+    <div id="cursor-glow"></div>
+
+    <!-- Optional CRT Overlay Layer -->
+    <div id="scanline-layer" class="fixed inset-0 w-full h-full scanlines z-50 pointer-events-none transition-opacity duration-300 opacity-70"></div>
+
+    <!-- Audio Synth Feedback Alert Toast -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-3 pointer-events-none"></div>
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-40 w-full cyber-glass border-b border-cyber-border/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo & Glitch Title -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 bg-cyber-dark border border-cyber-cyan flex items-center justify-center relative cyber-clip-sm group-hover:border-cyber-magenta transition-colors">
+                    <i class="fa-solid fa-cat text-cyber-cyan group-hover:text-cyber-magenta text-xl transition-colors"></i>
+                    <span class="absolute -top-1 -right-1 w-2 h-2 bg-cyber-green rounded-full animate-ping"></span>
+                </div>
+                <div>
+                    <div class="font-orbitron font-extrabold text-lg sm:text-xl tracking-wider text-white glitch-text flex items-center" data-text="GR8MEOW">
+                        GR8MEOW <span class="text-cyber-cyan ml-2 text-xs font-mono tracking-widest hidden sm:inline">// DEADMAN SWITCH</span>
+                    </div>
+                    <div class="text-[10px] font-mono text-cyber-magenta tracking-widest uppercase flex items-center">
+                        <span class="inline-block w-1.5 h-1.5 bg-cyber-magenta rounded-full mr-1.5 animate-pulse"></span>
+                        Status: ACTIVE [NODE-09]
+                    </div>
+                </div>
+            </a>
+
+            <!-- Live Member Counter Pill -->
+            <div class="hidden md:flex items-center space-x-3 bg-cyber-dark/80 px-4 py-1.5 rounded-full border border-cyber-cyan/30 text-xs font-mono">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-green opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyber-green"></span>
+                </span>
+                <span id="member-counter" class="text-cyber-cyan font-bold tracking-wider">114,507</span>
+                <span class="text-gray-400 uppercase text-[10px]">OPERATORS ONLINE</span>
+            </div>
+
+            <!-- Navigation Links (Desktop) -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-orbitron font-semibold tracking-wider">
+                <a href="#games" class="text-gray-300 hover:text-cyber-cyan transition-colors flex items-center space-x-1.5 group">
+                    <span class="text-cyber-cyan/50 text-xs group-hover:text-cyber-cyan">01.</span>
+                    <span>GAMES</span>
+                </a>
+                <a href="#vault" class="text-gray-300 hover:text-cyber-cyan transition-colors flex items-center space-x-1.5 group">
+                    <span class="text-cyber-cyan/50 text-xs group-hover:text-cyber-cyan">02.</span>
+                    <span>VAULT</span>
+                </a>
+                <a href="#portal" class="text-gray-300 hover:text-cyber-cyan transition-colors flex items-center space-x-1.5 group">
+                    <span class="text-cyber-cyan/50 text-xs group-hover:text-cyber-cyan">03.</span>
+                    <span>DROP PORTAL</span>
+                </a>
+                <a href="#community" class="text-gray-300 hover:text-cyber-cyan transition-colors flex items-center space-x-1.5 group">
+                    <span class="text-cyber-cyan/50 text-xs group-hover:text-cyber-cyan">04.</span>
+                    <span>COMMUNITY</span>
+                </a>
+            </nav>
+
+            <!-- Control Tools: Sound & Scanlines Toggle & Mobile Menu -->
+            <div class="flex items-center space-x-3">
+                <!-- SFX Audio Button -->
+                <button id="sfx-toggle-btn" class="p-2.5 bg-cyber-dark border border-cyber-border/60 hover:border-cyber-cyan text-cyber-cyan rounded transition-colors text-xs font-mono flex items-center space-x-1.5" title="Toggle Synth Audio SFX">
+                    <i id="sfx-icon" class="fas fa-volume-high"></i>
+                    <span class="hidden sm:inline text-[10px]">SFX</span>
+                </button>
+
+                <!-- CRT Scanline Toggle Button -->
+                <button id="scanline-toggle-btn" class="p-2.5 bg-cyber-dark border border-cyber-border/60 hover:border-cyber-cyan text-cyber-cyan rounded transition-colors text-xs font-mono flex items-center space-x-1.5" title="Toggle CRT Scanline Overlay">
+                    <i class="fas fa-tv"></i>
+                    <span class="hidden sm:inline text-[10px]">CRT</span>
+                </button>
+
+                <!-- Mobile Hamburger Toggle -->
+                <button id="mobile-menu-btn" class="lg:hidden p-2.5 bg-cyber-dark border border-cyber-border text-white rounded">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-cyber-border/40 bg-cyber-dark/95 backdrop-blur-xl px-4 pt-3 pb-6 space-y-3 font-orbitron">
+            <div class="flex items-center justify-between py-2 border-b border-cyber-border/20 text-xs font-mono text-cyber-cyan">
+                <span>SYSTEM LINK ACTIVE</span>
+                <span id="mobile-member-counter">114,507 ONLINE</span>
+            </div>
+            <a href="#games" class="mobile-nav-link block py-2 text-gray-200 hover:text-cyber-cyan">01. GAMES</a>
+            <a href="#vault" class="mobile-nav-link block py-2 text-gray-200 hover:text-cyber-cyan">02. VAULT</a>
+            <a href="#portal" class="mobile-nav-link block py-2 text-gray-200 hover:text-cyber-cyan">03. DROP PORTAL</a>
+            <a href="#community" class="mobile-nav-link block py-2 text-gray-200 hover:text-cyber-cyan">04. COMMUNITY</a>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-10">
+
+        <!-- Hero Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pt-4">
+            
+            <!-- Left Hero Column -->
+            <div class="lg:col-span-7 space-y-6">
+                
+                <div class="inline-flex items-center space-x-2 bg-cyber-magenta/10 border border-cyber-magenta/40 px-3 py-1 rounded text-xs font-mono text-cyber-magenta">
+                    <i class="fas fa-biohazard animate-spin" style="animation-duration: 8s;"></i>
+                    <span class="tracking-widest uppercase font-bold">SYSTEM OVERRIDE IN PROGRESS</span>
+                </div>
+
+                <div class="space-y-2">
+                    <h1 class="text-4xl sm:text-6xl font-orbitron font-black text-white tracking-tight uppercase leading-none">
+                        GR8MEOW <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-white to-cyber-magenta glitch-text" data-text="STUDIOS">STUDIOS</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl font-rajdhani font-semibold text-cyber-cyan tracking-wider">
+                        NEXT-GEN ANOMALOUS GAMING PROTOCOLS & CYBERPUNK WORLDS
+                    </p>
+                </div>
+
+                <p class="text-gray-400 text-base sm:text-lg max-w-2xl font-mono leading-relaxed">
+                    We construct high-octane tactical combat, rogue neural simulations, and relentless cyber dark fantasy titles. Armed with automated release payloads, our games deploy when the switch drops.
+                </p>
+
+                <!-- Hero Action Buttons -->
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#vault" class="cyber-clip-btn bg-cyber-cyan text-black font-orbitron font-bold px-7 py-3.5 hover:bg-white hover:shadow-[0_0_20px_#00f3ff] transition-all flex items-center space-x-2 group">
+                        <i class="fas fa-key text-black group-hover:rotate-45 transition-transform"></i>
+                        <span>DECLASSIFY VAULT</span>
+                    </a>
+
+                    <a href="#portal" class="cyber-clip-btn bg-transparent border border-cyber-magenta text-cyber-magenta hover:bg-cyber-magenta/20 font-orbitron font-bold px-7 py-3.5 transition-all flex items-center space-x-2">
+                        <i class="fas fa-terminal"></i>
+                        <span>ACCESS PORTAL</span>
+                    </a>
+                </div>
+
+                <!-- Live Network Terminal Mini Readout -->
+                <div class="bg-cyber-dark/90 border border-cyber-border/40 p-3 rounded font-mono text-xs text-gray-400 space-y-1.5 max-w-xl">
+                    <div class="flex items-center justify-between text-cyber-cyan/80 text-[11px] border-b border-cyber-border/20 pb-1">
+                        <span><i class="fas fa-server mr-1"></i> LOG_STREAM://LIVE_FEED</span>
+                        <span class="text-cyber-green">ONLINE</span>
+                    </div>
+                    <div id="terminal-ticker" class="text-gray-300 h-10 overflow-hidden font-mono text-[11px] space-y-1">
+                        <p class="text-cyber-cyan">&gt; [SYS_INIT] Neural encryption key active: 0x9F82A4</p>
+                        <p class="text-cyber-green">&gt; [DEADMAN_SWITCH] Heartbeat check complete. Countdown operational.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Hero Column: Interactive 3D Tilt Visual Box -->
+            <div class="lg:col-span-5 flex justify-center">
+                <div id="hero-tilt-card" class="relative w-full max-w-md bg-cyber-dark/80 border-2 border-cyber-cyan/50 p-6 cyber-clip neon-box-cyan transition-transform duration-200 ease-out cursor-pointer group">
+                    
+                    <!-- Scanbeam line effect -->
+                    <div class="scanbeam-line absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-cyber-cyan to-transparent z-20 pointer-events-none"></div>
+
+                    <!-- Cyber Corner Brackets -->
+                    <div class="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-cyber-cyan"></div>
+                    <div class="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-cyber-cyan"></div>
+                    <div class="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-cyber-cyan"></div>
+                    <div class="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-cyber-cyan"></div>
+
+                    <!-- Visual Header -->
+                    <div class="flex items-center justify-between border-b border-cyber-border/40 pb-3 mb-4">
+                        <div class="flex items-center space-x-2 text-xs font-mono text-cyber-cyan">
+                            <i class="fas fa-microchip"></i>
+                            <span>AI_CORE // MODEL-PAW-9</span>
+                        </div>
+                        <span class="text-[10px] bg-cyber-magenta/20 text-cyber-magenta px-2 py-0.5 rounded font-mono border border-cyber-magenta/30">LEVEL 5 CLEARED</span>
+                    </div>
+
+                    <!-- Center Graphic Box -->
+                    <div class="relative h-64 w-full bg-cyber-black rounded border border-cyber-border flex flex-col items-center justify-center overflow-hidden group-hover:border-cyber-cyan transition-colors">
+                        <!-- Hologram Backdrop lines -->
+                        <div class="absolute inset-0 bg-grid-pattern opacity-30"></div>
+                        <div class="absolute w-40 h-40 bg-cyber-cyan/10 rounded-full blur-2xl group-hover:bg-cyber-magenta/20 transition-colors"></div>
+                        
+                        <!-- Cat Cyber Mascot Visual Element -->
+                        <div class="relative z-10 text-center space-y-2">
+                            <div class="relative inline-block">
+                                <i class="fa-solid fa-cat text-7xl text-cyber-cyan drop-shadow-[0_0_15px_rgba(0,243,255,0.8)] group-hover:text-cyber-magenta transition-colors duration-300"></i>
+                                <div class="absolute -top-1 -right-1 text-cyber-yellow text-xs animate-bounce">
+                                    <i class="fas fa-crosshair"></i>
+                                </div>
+                            </div>
+                            <div class="font-orbitron font-bold text-white text-lg tracking-widest uppercase">
+                                PROJECT: CYBERPAWS
+                            </div>
+                            <div class="text-xs font-mono text-cyber-cyan/80">
+                                QUANTUM ENCRYPTION ACTIVE
+                            </div>
+                        </div>
+
+                        <!-- Glare overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+
+                    <!-- Visual Footer Meters -->
+                    <div class="mt-4 grid grid-cols-3 gap-2 text-center font-mono text-[10px]">
+                        <div class="bg-cyber-black/60 p-2 rounded border border-cyber-border/30">
+                            <div class="text-gray-400">SYNC</div>
+                            <div class="text-cyber-green font-bold">99.8%</div>
+                        </div>
+                        <div class="bg-cyber-black/60 p-2 rounded border border-cyber-border/30">
+                            <div class="text-gray-400">THREAT</div>
+                            <div class="text-cyber-magenta font-bold">CRITICAL</div>
+                        </div>
+                        <div class="bg-cyber-black/60 p-2 rounded border border-cyber-border/30">
+                            <div class="text-gray-400">HASH</div>
+                            <div class="text-cyber-cyan font-bold truncate">#7F90E1</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Cyber Sci-Fi Countdown Clock Panel -->
+        <section id="deadman-panel" class="relative bg-cyber-dark/90 border-2 border-cyber-magenta/60 p-6 sm:p-10 cyber-clip shadow-[0_0_30px_rgba(255,0,85,0.2)]">
+            
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-cyber-magenta/30 pb-6 mb-8 gap-4">
+                <div>
+                    <div class="flex items-center space-x-2 text-cyber-magenta text-xs font-mono tracking-widest uppercase">
+                        <i class="fas fa-skull animate-pulse"></i>
+                        <span>DEADMAN SWITCH ENGINE v4.09</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-4xl font-orbitron font-black text-white uppercase tracking-wide mt-1">
+                        AUTOMATED DROP COUNTDOWN
+                    </h2>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <span class="inline-block w-3 h-3 bg-cyber-yellow rounded-full animate-ping"></span>
+                    <div class="text-right">
+                        <div class="text-xs font-mono text-gray-400">STATUS VERDICT</div>
+                        <div class="text-cyber-yellow font-orbitron font-bold text-sm tracking-widest">RELEASE DATE UNKNOWN // SOON™</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Glitched Digit Readout Clock -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 text-center my-6">
+                <!-- Days -->
+                <div class="bg-cyber-black/80 border border-cyber-cyan/40 p-4 sm:p-6 rounded cyber-clip-sm hover:border-cyber-cyan transition-colors group cursor-pointer font-mono">
+                    <div id="clock-days" class="text-4xl sm:text-6xl font-orbitron font-black text-cyber-cyan group-hover:scale-105 transition-transform tracking-widest">
+                        042
+                    </div>
+                    <div class="text-xs font-mono text-gray-400 tracking-widest mt-2 uppercase">DAYS</div>
+                </div>
+
+                <!-- Hours -->
+                <div class="bg-cyber-black/80 border border-cyber-cyan/40 p-4 sm:p-6 rounded cyber-clip-sm hover:border-cyber-cyan transition-colors group cursor-pointer font-mono">
+                    <div id="clock-hours" class="text-4xl sm:text-6xl font-orbitron font-black text-cyber-cyan group-hover:scale-105 transition-transform tracking-widest">
+                        18
+                    </div>
+                    <div class="text-xs font-mono text-gray-400 tracking-widest mt-2 uppercase">HOURS</div>
+                </div>
+
+                <!-- Minutes -->
+                <div class="bg-cyber-black/80 border border-cyber-cyan/40 p-4 sm:p-6 rounded cyber-clip-sm hover:border-cyber-cyan transition-colors group cursor-pointer font-mono">
+                    <div id="clock-mins" class="text-4xl sm:text-6xl font-orbitron font-black text-cyber-cyan group-hover:scale-105 transition-transform tracking-widest">
+                        54
+                    </div>
+                    <div class="text-xs font-mono text-gray-400 tracking-widest mt-2 uppercase">MINS</div>
+                </div>
+
+                <!-- Seconds -->
+                <div class="bg-cyber-black/80 border border-cyber-magenta/60 p-4 sm:p-6 rounded cyber-clip-sm hover:border-cyber-magenta transition-colors group cursor-pointer font-mono">
+                    <div id="clock-secs" class="text-4xl sm:text-6xl font-orbitron font-black text-cyber-magenta group-hover:scale-105 transition-transform tracking-widest animate-pulse">
+                        09
+                    </div>
+                    <div class="text-xs font-mono text-gray-400 tracking-widest mt-2 uppercase">SECS</div>
+                </div>
+            </div>
+
+            <!-- Deadman Switch Protocol Statement & Overdrive Trigger -->
+            <div class="mt-8 bg-cyber-black/50 border border-cyber-border/50 p-4 sm:p-6 rounded flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-1 font-mono text-xs sm:text-sm text-gray-300">
+                    <div class="text-cyber-cyan font-bold uppercase flex items-center space-x-2">
+                        <i class="fas fa-triangle-exclamation text-cyber-yellow"></i>
+                        <span>WHAT IS THE DEADMAN SWITCH?</span>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        If studio heartbeat pings cease or system operators go silent for 100 consecutive days, the fail-safe vault automatically broadcasts all raw game binaries, source code, and classified dossiers directly to public decentralized mirrors.
+                    </p>
+                </div>
+
+                <!-- Interactive Overdrive Button -->
+                <button id="scramble-btn" class="w-full md:w-auto shrink-0 cyber-clip-btn bg-cyber-magenta text-white font-orbitron font-bold px-6 py-3 hover:bg-white hover:text-black transition-all text-xs tracking-wider flex items-center justify-center space-x-2">
+                    <i class="fas fa-bolt"></i>
+                    <span>FORCE SIGNAL OVERDRIVE</span>
+                </button>
+            </div>
+
+        </section>
+
+        <!-- Game Vault & Dossier Showcase -->
+        <section id="games" class="space-y-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-cyber-border/40 pb-4 gap-4">
+                <div>
+                    <div class="text-cyber-cyan text-xs font-mono tracking-widest uppercase flex items-center space-x-2">
+                        <i class="fas fa-folder-open"></i>
+                        <span>CLASSIFIED TITLES // DECLASSIFIED FILES</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-orbitron font-extrabold text-white uppercase mt-1">
+                        GAME VAULT DOSSIER
+                    </h2>
+                </div>
+
+                <!-- Game Filter Tabs -->
+                <div class="flex flex-wrap gap-2 text-xs font-mono">
+                    <button class="vault-filter-btn active bg-cyber-cyan text-black px-3.5 py-1.5 rounded font-bold" data-filter="all">ALL (4)</button>
+                    <button class="vault-filter-btn bg-cyber-dark text-gray-400 hover:text-white px-3.5 py-1.5 rounded border border-cyber-border/40" data-filter="beta">BETA</button>
+                    <button class="vault-filter-btn bg-cyber-dark text-gray-400 hover:text-white px-3.5 py-1.5 rounded border border-cyber-border/40" data-filter="prealpha">PRE-ALPHA</button>
+                    <button class="vault-filter-btn bg-cyber-dark text-gray-400 hover:text-white px-3.5 py-1.5 rounded border border-cyber-border/40" data-filter="classified">CLASSIFIED</button>
+                </div>
+            </div>
+
+            <!-- Games Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- Game Card 1 -->
+                <div class="game-card game-beta bg-cyber-dark border border-cyber-border/60 hover:border-cyber-cyan p-6 cyber-clip transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,243,255,0.2)] flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-mono bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 px-2.5 py-1 rounded">BETA PHASE 2</span>
+                            <span class="text-xs font-mono text-gray-500">ID: #GP-9012</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-orbitron font-bold text-white group-hover:text-cyber-cyan transition-colors uppercase">
+                                PROJECT: CYBERPAWS
+                            </h3>
+                            <p class="text-xs font-mono text-cyber-magenta mt-1">HIGH-VELOCITY CYBER-FELINE ACTION RPG</p>
+                        </div>
+
+                        <p class="text-gray-400 text-sm font-mono leading-relaxed">
+                            Step into the augmented paws of an apex feline operative in Neo-Metropolis. Master high-speed wall running, neural hack-blades, and orbital strikes against rogue megacorps.
+                        </p>
+
+                        <!-- Game Stats Grid -->
+                        <div class="grid grid-cols-3 gap-2 font-mono text-[11px] pt-2">
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">ENGINE</span>
+                                <span class="text-white font-bold">UNREAL 5.4</span>
+                            </div>
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">MODE</span>
+                                <span class="text-white font-bold">SOLO / CO-OP</span>
+                            </div>
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">RELEASE</span>
+                                <span class="text-cyber-green font-bold">Q4 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-cyber-border/30 flex items-center justify-between">
+                        <div class="flex space-x-2 text-xs text-gray-400 font-mono">
+                            <span class="hover:text-cyber-cyan"><i class="fas fa-tag mr-1"></i>Cyberpunk</span>
+                            <span class="hover:text-cyber-cyan"><i class="fas fa-tag mr-1"></i>Action</span>
+                        </div>
+                        <button onclick="openDossier('cyberpaws')" class="declassify-btn cyber-clip-btn bg-cyber-cyan/20 border border-cyber-cyan text-cyber-cyan hover:bg-cyber-cyan hover:text-black font-orbitron font-bold px-4 py-2 text-xs transition-all flex items-center space-x-1.5">
+                            <i class="fas fa-lock-open text-[10px]"></i>
+                            <span>DECLASSIFY KEY</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game Card 2 -->
+                <div class="game-card game-prealpha bg-cyber-dark border border-cyber-border/60 hover:border-cyber-magenta p-6 cyber-clip transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,0,85,0.2)] flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-mono bg-cyber-magenta/10 text-cyber-magenta border border-cyber-magenta/30 px-2.5 py-1 rounded">PRE-ALPHA</span>
+                            <span class="text-xs font-mono text-gray-500">ID: #VS-4091</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-orbitron font-bold text-white group-hover:text-cyber-magenta transition-colors uppercase">
+                                VOID STALKER: NEON ZERO
+                            </h3>
+                            <p class="text-xs font-mono text-cyber-cyan mt-1">TACTICAL EXTRACTION SHOOTER</p>
+                        </div>
+
+                        <p class="text-gray-400 text-sm font-mono leading-relaxed">
+                            Navigate pitch-black derelict space stations filled with anomalous cataclysmic rift entities. Extract rare cyberware or perish in the dark space void.
+                        </p>
+
+                        <!-- Game Stats Grid -->
+                        <div class="grid grid-cols-3 gap-2 font-mono text-[11px] pt-2">
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">ENGINE</span>
+                                <span class="text-white font-bold">CUSTOM C++</span>
+                            </div>
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">PLAYERS</span>
+                                <span class="text-white font-bold">16 EXTRACTION</span>
+                            </div>
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">RELEASE</span>
+                                <span class="text-cyber-yellow font-bold">TBA 2027</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-cyber-border/30 flex items-center justify-between">
+                        <div class="flex space-x-2 text-xs text-gray-400 font-mono">
+                            <span class="hover:text-cyber-magenta"><i class="fas fa-tag mr-1"></i>Hardcore</span>
+                            <span class="hover:text-cyber-magenta"><i class="fas fa-tag mr-1"></i>PvPvE</span>
+                        </div>
+                        <button onclick="openDossier('voidstalker')" class="declassify-btn cyber-clip-btn bg-cyber-magenta/20 border border-cyber-magenta text-cyber-magenta hover:bg-cyber-magenta hover:text-white font-orbitron font-bold px-4 py-2 text-xs transition-all flex items-center space-x-1.5">
+                            <i class="fas fa-lock-open text-[10px]"></i>
+                            <span>DECLASSIFY KEY</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game Card 3 -->
+                <div class="game-card game-classified bg-cyber-dark border border-cyber-border/60 hover:border-cyber-yellow p-6 cyber-clip transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,183,0,0.2)] flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-mono bg-cyber-yellow/10 text-cyber-yellow border border-cyber-yellow/30 px-2.5 py-1 rounded">RESTRICTED DOSSIER</span>
+                            <span class="text-xs font-mono text-gray-500">ID: #DP-0001</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-orbitron font-bold text-white group-hover:text-cyber-yellow transition-colors uppercase">
+                                DEADMAN PROTOCOL
+                            </h3>
+                            <p class="text-xs font-mono text-cyber-green mt-1">IMMERSIVE SCI-FI HORROR SIMULATOR</p>
+                        </div>
+
+                        <p class="text-gray-400 text-sm font-mono leading-relaxed">
+                            A psychological horror investigation where you interface directly with corrupted neural networks to contain an rogue AI cat god before it breaches orbital defense switches.
+                        </p>
+
+                        <!-- Game Stats Grid -->
+                        <div class="grid grid-cols-3 gap-2 font-mono text-[11px] pt-2">
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">PERSPECTIVE</span>
+                                <span class="text-white font-bold">1ST PERSON</span>
+                            </div>
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">AI BRAIN</span>
+                                <span class="text-white font-bold">NEURAL LLM</span>
+                            </div>
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">ACCESS</span>
+                                <span class="text-cyber-magenta font-bold">DEADMAN ONLY</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-cyber-border/30 flex items-center justify-between">
+                        <div class="flex space-x-2 text-xs text-gray-400 font-mono">
+                            <span class="hover:text-cyber-yellow"><i class="fas fa-tag mr-1"></i>Horror</span>
+                            <span class="hover:text-cyber-yellow"><i class="fas fa-tag mr-1"></i>Sim</span>
+                        </div>
+                        <button onclick="openDossier('deadmanprotocol')" class="declassify-btn cyber-clip-btn bg-cyber-yellow/20 border border-cyber-yellow text-cyber-yellow hover:bg-cyber-yellow hover:text-black font-orbitron font-bold px-4 py-2 text-xs transition-all flex items-center space-x-1.5">
+                            <i class="fas fa-lock-open text-[10px]"></i>
+                            <span>DECLASSIFY KEY</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Game Card 4 -->
+                <div class="game-card game-beta bg-cyber-dark border border-cyber-border/60 hover:border-cyber-green p-6 cyber-clip transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,102,0.2)] flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-mono bg-cyber-green/10 text-cyber-green border border-cyber-green/30 px-2.5 py-1 rounded">BETA READY</span>
+                            <span class="text-xs font-mono text-gray-500">ID: #NM-8831</span>
+                        </div>
+
+                        <div>
+                            <h3 class="text-2xl font-orbitron font-bold text-white group-hover:text-cyber-green transition-colors uppercase">
+                                NEKO MATRIX // OVERDRIVE
+                            </h3>
+                            <p class="text-xs font-mono text-cyber-cyan mt-1">RHYTHM CYBERNETIC SLASHER</p>
+                        </div>
+
+                        <p class="text-gray-400 text-sm font-mono leading-relaxed">
+                            Slice through neon waves of corrupt synth-drones to synthesized synthwave and darksynth soundtracks. Sync combat attacks directly to the beat.
+                        </p>
+
+                        <!-- Game Stats Grid -->
+                        <div class="grid grid-cols-3 gap-2 font-mono text-[11px] pt-2">
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">AUDIO</span>
+                                <span class="text-white font-bold">32 BIT WAV</span>
+                            </div>
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">TRACKS</span>
+                                <span class="text-white font-bold">45 OST</span>
+                            </div>
+                            <div class="bg-cyber-black/70 p-2 rounded">
+                                <span class="text-gray-500 block">STEAM</span>
+                                <span class="text-cyber-green font-bold">WISHLIST</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-cyber-border/30 flex items-center justify-between">
+                        <div class="flex space-x-2 text-xs text-gray-400 font-mono">
+                            <span class="hover:text-cyber-green"><i class="fas fa-tag mr-1"></i>Rhythm</span>
+                            <span class="hover:text-cyber-green"><i class="fas fa-tag mr-1"></i>Combat</span>
+                        </div>
+                        <button onclick="openDossier('nekomatrix')" class="declassify-btn cyber-clip-btn bg-cyber-green/20 border border-cyber-green text-cyber-green hover:bg-cyber-green hover:text-black font-orbitron font-bold px-4 py-2 text-xs transition-all flex items-center space-x-1.5">
+                            <i class="fas fa-lock-open text-[10px]"></i>
+                            <span>DECLASSIFY KEY</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Creator & Beta Tester Submission Portal -->
+        <section id="portal" class="bg-cyber-dark/80 border border-cyber-border/80 p-6 sm:p-10 cyber-clip relative">
+            
+            <div class="max-w-3xl mx-auto space-y-6">
+                
+                <div class="text-center space-y-2">
+                    <div class="inline-flex items-center space-x-2 text-cyber-cyan text-xs font-mono tracking-widest uppercase">
+                        <i class="fas fa-satellite-dish animate-pulse"></i>
+                        <span>ENCRYPTED TRANSMISSION CHANNEL</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-orbitron font-black text-white uppercase">
+                        CREATOR & BETA ACCESS PORTAL
+                    </h2>
+                    <p class="text-gray-400 font-mono text-xs sm:text-sm">
+                        Submit your operator credentials to receive private steam keys, early access builds, and content collaboration access.
+                    </p>
+                </div>
+
+                <!-- Interactive Form -->
+                <form id="submission-form" onsubmit="handlePortalSubmit(event)" class="space-y-5 pt-4">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        
+                        <!-- Operator Name / Handle -->
+                        <div class="space-y-1.5">
+                            <label class="block text-xs font-mono text-cyber-cyan uppercase">
+                                OPERATOR HANDLE / NAME <span class="text-cyber-magenta">*</span>
+                            </label>
+                            <div class="relative">
+                                <input type="text" id="handle-input" required placeholder="e.g. CyberNeko_X" class="w-full bg-cyber-black/90 border border-cyber-border/60 focus:border-cyber-cyan text-white text-sm rounded p-3 font-mono outline-none transition-colors">
+                                <i class="fas fa-user-ninja absolute right-3 top-3.5 text-gray-500 text-xs"></i>
+                            </div>
+                        </div>
+
+                        <!-- Media Platform -->
+                        <div class="space-y-1.5">
+                            <label class="block text-xs font-mono text-cyber-cyan uppercase">
+                                PRIMARY MEDIA PLATFORM <span class="text-cyber-magenta">*</span>
+                            </label>
+                            <select id="platform-select" required class="w-full bg-cyber-black/90 border border-cyber-border/60 focus:border-cyber-cyan text-white text-sm rounded p-3 font-mono outline-none transition-colors">
+                                <option value="YouTube">YouTube Channel</option>
+                                <option value="Twitch">Twitch Streamer</option>
+                                <option value="X">Twitter / X</option>
+                                <option value="Kick">Kick Live</option>
+                                <option value="Tester">Hardcore Beta Tester</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        
+                        <!-- Clip / Portfolio URL -->
+                        <div class="space-y-1.5">
+                            <label class="block text-xs font-mono text-cyber-cyan uppercase">
+                                PORTFOLIO / CHANNEL URL <span class="text-cyber-magenta">*</span>
+                            </label>
+                            <div class="relative">
+                                <input type="url" id="url-input" required placeholder="https://youtube.com/@yourchannel" class="w-full bg-cyber-black/90 border border-cyber-border/60 focus:border-cyber-cyan text-white text-sm rounded p-3 font-mono outline-none transition-colors">
+                                <i class="fas fa-link absolute right-3 top-3.5 text-gray-500 text-xs"></i>
+                            </div>
+                        </div>
+
+                        <!-- Proposed Role -->
+                        <div class="space-y-1.5">
+                            <label class="block text-xs font-mono text-cyber-cyan uppercase">
+                                PROPOSED COLLAB ROLE
+                            </label>
+                            <select id="role-select" class="w-full bg-cyber-black/90 border border-cyber-border/60 focus:border-cyber-cyan text-white text-sm rounded p-3 font-mono outline-none transition-colors">
+                                <option value="Alpha Testing">Closed Alpha / Beta Playtester</option>
+                                <option value="Content Creator">Sponsored Content Streamer</option>
+                                <option value="Lore & Modding">Lore Writer / Modder</option>
+                                <option value="Sound & OST">Audio & Darksynth Music Collab</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <!-- Security Verification Checkbox -->
+                    <div class="bg-cyber-black/60 border border-cyber-border/40 p-3 rounded flex items-center justify-between text-xs font-mono">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="captcha-check" required class="accent-cyber-cyan w-4 h-4 rounded">
+                            <span class="text-gray-300">I confirm human operator status and acknowledge confidentiality protocols.</span>
+                        </label>
+                        <i class="fas fa-shield-halved text-cyber-green text-sm"></i>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submit-btn" class="w-full cyber-clip-btn bg-cyber-cyan text-black font-orbitron font-extrabold py-4 hover:bg-white hover:shadow-[0_0_25px_#00f3ff] transition-all tracking-wider text-sm flex items-center justify-center space-x-2 group">
+                        <i class="fas fa-paper-plane group-hover:translate-x-1 transition-transform"></i>
+                        <span>TRANSMIT ENCRYPTED DOSSIER</span>
+                    </button>
+
+                </form>
+
+                <!-- Live Transmission Console Drawer Output -->
+                <div id="transmission-console" class="hidden bg-cyber-black border border-cyber-green p-4 rounded font-mono text-xs space-y-2 text-cyber-green">
+                    <div class="flex items-center justify-between border-b border-cyber-green/30 pb-2 text-[11px]">
+                        <span><i class="fas fa-terminal mr-1.5"></i> ENCRYPTION_STREAM_LOG</span>
+                        <span id="trans-status" class="animate-pulse">UPLOADING...</span>
+                    </div>
+                    <div id="trans-log" class="space-y-1 text-gray-300 h-24 overflow-y-auto text-[11px]">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Social CTAs & Community Section -->
+        <section id="community" class="space-y-8">
+            
+            <div class="text-center space-y-2">
+                <div class="text-cyber-magenta text-xs font-mono tracking-widest uppercase">
+                    <i class="fas fa-network-wired"></i> JOIN THE RESISTANCE NETWORK
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-orbitron font-black text-white uppercase">
+                    CONNECT WITH GR8MEOW
+                </h2>
+                <p class="text-gray-400 font-mono text-xs sm:text-sm max-w-xl mx-auto">
+                    Stay locked in for real-time deadman switch updates, devlogs, community alpha key drops, and darksynth soundtrack releases.
+                </p>
+            </div>
+
+            <!-- Social Glowing Buttons Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <!-- Discord Button -->
+                <a href="https://discord.gg" target="_blank" class="bg-cyber-dark/90 border border-cyber-border hover:border-cyber-cyan p-5 rounded cyber-clip group transition-all duration-300 flex items-center space-x-4 hover:shadow-[0_0_20px_rgba(0,243,255,0.25)]">
+                    <div class="w-12 h-12 bg-cyber-black border border-cyber-cyan/40 rounded flex items-center justify-center text-cyber-cyan group-hover:bg-cyber-cyan group-hover:text-black transition-colors text-xl">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <div>
+                        <div class="font-orbitron font-bold text-white group-hover:text-cyber-cyan transition-colors">DISCORD SERVER</div>
+                        <div class="text-xs font-mono text-gray-400">48,201 Members</div>
+                    </div>
+                </a>
+
+                <!-- Telegram Button -->
+                <a href="https://t.me" target="_blank" class="bg-cyber-dark/90 border border-cyber-border hover:border-cyber-cyan p-5 rounded cyber-clip group transition-all duration-300 flex items-center space-x-4 hover:shadow-[0_0_20px_rgba(0,243,255,0.25)]">
+                    <div class="w-12 h-12 bg-cyber-black border border-cyber-cyan/40 rounded flex items-center justify-center text-cyber-cyan group-hover:bg-cyber-cyan group-hover:text-black transition-colors text-xl">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div>
+                        <div class="font-orbitron font-bold text-white group-hover:text-cyber-cyan transition-colors">TELEGRAM CHANNEL</div>
+                        <div class="text-xs font-mono text-gray-400">Broadcast Feed</div>
+                    </div>
+                </a>
+
+                <!-- Twitter / X Button -->
+                <a href="https://x.com" target="_blank" class="bg-cyber-dark/90 border border-cyber-border hover:border-cyber-magenta p-5 rounded cyber-clip group transition-all duration-300 flex items-center space-x-4 hover:shadow-[0_0_20px_rgba(255,0,85,0.25)]">
+                    <div class="w-12 h-12 bg-cyber-black border border-cyber-magenta/40 rounded flex items-center justify-center text-cyber-magenta group-hover:bg-cyber-magenta group-hover:text-white transition-colors text-xl">
+                        <i class="fab fa-x-twitter"></i>
+                    </div>
+                    <div>
+                        <div class="font-orbitron font-bold text-white group-hover:text-cyber-magenta transition-colors">TWITTER / X</div>
+                        <div class="text-xs font-mono text-gray-400">@Gr8meowStudios</div>
+                    </div>
+                </a>
+
+                <!-- Steam Wishlist Button -->
+                <a href="https://store.steampowered.com" target="_blank" class="bg-cyber-dark/90 border border-cyber-border hover:border-cyber-green p-5 rounded cyber-clip group transition-all duration-300 flex items-center space-x-4 hover:shadow-[0_0_20px_rgba(0,255,102,0.25)]">
+                    <div class="w-12 h-12 bg-cyber-black border border-cyber-green/40 rounded flex items-center justify-center text-cyber-green group-hover:bg-cyber-green group-hover:text-black transition-colors text-xl">
+                        <i class="fab fa-steam"></i>
+                    </div>
+                    <div>
+                        <div class="font-orbitron font-bold text-white group-hover:text-cyber-green transition-colors">STEAM WISHLIST</div>
+                        <div class="text-xs font-mono text-gray-400">Wishlist Titles</div>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Contract Address / Cryptographic Hash Bar -->
+            <div class="bg-cyber-dark border border-cyber-border/60 p-4 rounded cyber-clip-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3 w-full sm:w-auto">
+                    <div class="w-8 h-8 bg-cyber-black border border-cyber-yellow flex items-center justify-center text-cyber-yellow shrink-0">
+                        <i class="fas fa-key text-xs"></i>
+                    </div>
+                    <div class="truncate font-mono text-xs">
+                        <span class="text-gray-400 block text-[10px]">VERIFIED DEADMAN SWITCH CONTRACT</span>
+                        <span class="text-cyber-cyan font-bold truncate">0x89F2A109C487E120B800F391AD823E4091DEAD404</span>
+                    </div>
+                </div>
+
+                <button onclick="copyContractAddress()" class="w-full sm:w-auto cyber-clip-btn bg-cyber-black border border-cyber-cyan/50 hover:border-cyber-cyan text-cyber-cyan hover:bg-cyber-cyan hover:text-black px-5 py-2.5 rounded font-mono text-xs font-bold transition-all flex items-center justify-center space-x-2 shrink-0">
+                    <i class="fas fa-copy"></i>
+                    <span>COPY CONTRACT ADDRESS</span>
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="relative z-10 border-t border-cyber-border/40 bg-cyber-dark/95 py-10 text-xs font-mono">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-cat text-cyber-cyan text-2xl"></i>
+                    <div>
+                        <div class="font-orbitron font-bold text-white text-sm tracking-wider">GR8MEOW STUDIOS</div>
+                        <div class="text-gray-500 text-[10px]">NEURAL NETWORK ID: #GR8MEOW-DEADMAN-SWITCH-2026</div>
+                    </div>
+                </div>
+
+                <!-- Footer Status Indicators -->
+                <div class="flex flex-wrap items-center gap-6 text-[11px] text-gray-400">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-cyber-green"></span>
+                        <span>NODES: 100% OPERATIONAL</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-cyber-cyan"></span>
+                        <span>LATENCY: <span id="ping-val">14</span>ms</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-cyber-yellow"></span>
+                        <span>UPTIME: <span id="uptime-val">99.98%</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-cyber-border/20 pt-6 flex flex-col sm:flex-row items-center justify-between text-gray-500 text-[10px] gap-2">
+                <p>&copy; 2026 GR8MEOW STUDIOS. ALL RIGHTS RESERVED. UNAUTHORIZED NEURAL LINKAGE PROHIBITED.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-cyber-cyan">TERMS OF TRANSMISSION</a>
+                    <a href="#" class="hover:text-cyber-cyan">PRIVACY PROTOCOL</a>
+                    <a href="#" class="hover:text-cyber-cyan">DECENTRALIZED ARCHIVE</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Game Dossier Modal / Drawer -->
+    <div id="dossier-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-cyber-dark border-2 border-cyber-cyan w-full max-w-2xl cyber-clip p-6 sm:p-8 space-y-6 relative shadow-[0_0_50px_rgba(0,243,255,0.3)] my-8 max-h-[90vh] overflow-y-auto">
+            
+            <button onclick="closeDossier()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 border-b border-cyber-border/40 pb-4">
+                <div class="w-10 h-10 bg-cyber-cyan/10 border border-cyber-cyan flex items-center justify-center text-cyber-cyan">
+                    <i class="fas fa-shield-cat text-lg"></i>
+                </div>
+                <div>
+                    <div class="text-[10px] font-mono text-cyber-magenta tracking-widest uppercase">DECLASSIFIED DOSSIER FILE</div>
+                    <h3 id="modal-title" class="text-2xl font-orbitron font-extrabold text-white uppercase">PROJECT TITLE</h3>
+                </div>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div id="modal-body" class="space-y-4 font-mono text-xs sm:text-sm text-gray-300">
+                <!-- Dynamic Content Injected via JavaScript -->
+            </div>
+
+            <!-- Modal Actions -->
+            <div class="pt-4 border-t border-cyber-border/40 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div class="text-[11px] font-mono text-cyber-green flex items-center space-x-1.5">
+                    <i class="fas fa-circle-check"></i>
+                    <span>HASH VERIFIED & DECRYPTED</span>
+                </div>
+                <div class="flex space-x-3 w-full sm:w-auto">
+                    <button onclick="copyBetaKey()" class="w-full sm:w-auto cyber-clip-btn bg-cyber-cyan text-black font-orbitron font-bold px-5 py-2.5 text-xs hover:bg-white transition-colors">
+                        <i class="fas fa-key mr-1.5"></i>COPY ACCESS CODE
+                    </button>
+                    <button onclick="closeDossier()" class="w-full sm:w-auto cyber-clip-btn bg-cyber-black border border-cyber-border text-gray-300 hover:text-white px-5 py-2.5 text-xs">
+                        CLOSE
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Interactive Web Audio API SFX System
+        let audioCtx = null;
+        let sfxEnabled = true;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSynthBeep(freq = 800, type = 'sine', duration = 0.08) {
+            if (!sfxEnabled) return;
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+                // Audio context policy catch
+            }
+        }
+
+        function playCyberGlitchSound() {
+            if (!sfxEnabled) return;
+            try {
+                initAudio();
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, now);
+                osc.frequency.exponentialRampToValueAtTime(1200, now + 0.15);
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.linearRampToValueAtTime(0.001, now + 0.15);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(now + 0.15);
+            } catch(e) {}
+        }
+
+        // SFX Toggle Button Handler
+        document.getElementById('sfx-toggle-btn').addEventListener('click', () => {
+            sfxEnabled = !sfxEnabled;
+            const icon = document.getElementById('sfx-icon');
+            if (sfxEnabled) {
+                icon.className = 'fas fa-volume-high';
+                showToast('AUDIO SFX: ENABLED', 'cyan');
+                playSynthBeep(900, 'square', 0.1);
+            } else {
+                icon.className = 'fas fa-volume-xmark';
+                showToast('AUDIO SFX: MUTED', 'magenta');
+            }
+        });
+
+        // CRT Scanline Toggle Handler
+        document.getElementById('scanline-toggle-btn').addEventListener('click', () => {
+            const scanlines = document.getElementById('scanline-layer');
+            scanlines.classList.toggle('opacity-0');
+            const isVisible = !scanlines.classList.contains('opacity-0');
+            showToast(isVisible ? 'CRT OVERLAY: ACTIVE' : 'CRT OVERLAY: DISABLED', 'cyan');
+            playSynthBeep(600, 'sawtooth', 0.08);
+        });
+
+        // Interactive HTML5 Canvas Particle Network Background
+        const canvas = document.getElementById('cyber-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        const particleCount = Math.min(Math.floor(window.innerWidth / 15), 80);
+
+        let mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+
+            // Update Spotlight Cursor Glow
+            const glow = document.getElementById('cursor-glow');
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.radius = Math.random() * 2 + 1;
+                this.color = Math.random() > 0.3 ? '#00f3ff' : '#ff0055';
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                // Mouse interaction repulsion/attraction
+                if (mouse.x && mouse.y) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        this.x -= (dx / dist) * 0.8;
+                        this.y -= (dy / dist) * 0.8;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw grid lines faintly
+            ctx.strokeStyle = 'rgba(0, 243, 255, 0.03)';
+            ctx.lineWidth = 1;
+
+            // Connect nearby nodes
+            for (let a = 0; a < particles.length; a++) {
+                particles[a].update();
+                particles[a].draw();
+
+                for (let b = a + 1; b < particles.length; b++) {
+                    let dx = particles[a].x - particles[b].x;
+                    let dy = particles[a].y - particles[b].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.strokeStyle = `rgba(0, 243, 255, ${1 - dist / 130 * 0.85})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.onload = function() {
+            animateCanvas();
+            startCountdownClock();
+            startNetworkPingSimulation();
+        };
+
+        // Interactive 3D Tilt Card Effect on Hero Visual
+        const tiltCard = document.getElementById('hero-tilt-card');
+        if (tiltCard) {
+            tiltCard.addEventListener('mousemove', (e) => {
+                const rect = tiltCard.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -12;
+                const rotateY = ((x - centerX) / centerX) * 12;
+
+                tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            tiltCard.addEventListener('mouseleave', () => {
+                tiltCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            });
+
+            tiltCard.addEventListener('mouseenter', () => {
+                playCyberGlitchSound();
+            });
+        }
+
+        // Cyber Sci-Fi Countdown Clock Logic & Digit Scramble Engine
+        let countdownTarget = new Date().getTime() + (42 * 24 * 60 * 60 * 1000) + (18 * 60 * 60 * 1000);
+
+        function startCountdownClock() {
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = countdownTarget - now;
+
+                if (distance > 0) {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    updateClockDigit('clock-days', String(days).padStart(3, '0'));
+                    updateClockDigit('clock-hours', String(hours).padStart(2, '0'));
+                    updateClockDigit('clock-mins', String(minutes).padStart(2, '0'));
+                    updateClockDigit('clock-secs', String(seconds).padStart(2, '0'));
+                }
+            }, 1000);
+        }
+
+        function updateClockDigit(elementId, val) {
+            const el = document.getElementById(elementId);
+            if (el && !el.dataset.scrambling) {
+                el.innerText = val;
+            }
+        }
+
+        // Digit Scramble Effect on Hover
+        const clockUnits = ['clock-days', 'clock-hours', 'clock-mins', 'clock-secs'];
+        clockUnits.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('mouseenter', () => {
+                    scrambleElementText(el);
+                    playSynthBeep(1200, 'sawtooth', 0.05);
+                });
+            }
+        });
+
+        function scrambleElementText(el) {
+            el.dataset.scrambling = "true";
+            const originalText = el.innerText;
+            const chars = "0123456789ABCDEF#$@%";
+            let count = 0;
+
+            const interval = setInterval(() => {
+                el.innerText = Array.from(originalText)
+                    .map(() => chars[Math.floor(Math.random() * chars.length)])
+                    .join('');
+                count++;
+                if (count > 8) {
+                    clearInterval(interval);
+                    el.innerText = originalText;
+                    delete el.dataset.scrambling;
+                }
+            }, 40);
+        }
+
+        // Force Signal Overdrive Button
+        document.getElementById('scramble-btn').addEventListener('click', () => {
+            playCyberGlitchSound();
+            showToast('SIGNAL OVERDRIVE ACTIVATED', 'magenta');
+            clockUnits.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) scrambleElementText(el);
+            });
+        });
+
+        // Game Vault Data & Modal Declassify Action
+        const dossiers = {
+            cyberpaws: {
+                title: 'PROJECT: CYBERPAWS',
+                id: '#GP-9012-ALPHA',
+                hash: '0x902F...88A1PAW',
+                betaCode: 'PAW-ALPHA-2026-X99',
+                content: `
+                    <p class="text-cyber-cyan"><strong>SUMMARY:</strong> High-velocity feline cyberpunk action RPG featuring augmentations, wall-running, and high-frequency katana combat.</p>
+                    <div class="bg-cyber-black p-3 rounded border border-cyber-border space-y-1 my-3 text-xs">
+                        <div><strong>CONTRACT HASH:</strong> <span class="text-cyber-green">0x902F3A8109BC4488A1PAW</span></div>
+                        <div><strong>TARGET PLATFORMS:</strong> PC, PS5, Xbox Series X, Steam Deck</div>
+                        <div><strong>SECRET BETA CODE:</strong> <span class="text-cyber-yellow font-bold">PAW-ALPHA-2026-X99</span></div>
+                    </div>
+                    <p class="text-gray-400">CLASSIFIED LORE: Operative 'Neko-01' was cybernetically altered by Arasaka-class megacorps. When the Deadman Switch activates, all secret debug menus and cheat engine addresses will be broadcasted to players.</p>
+                `
+            },
+            voidstalker: {
+                title: 'VOID STALKER: NEON ZERO',
+                id: '#VS-4091-PRE',
+                hash: '0x4091...VOID77',
+                betaCode: 'VOID-ZERO-EXTRACT-99',
+                content: `
+                    <p class="text-cyber-magenta"><strong>SUMMARY:</strong> Dark sci-fi tactical extraction shooter set in pitch-black derelict planetary stations.</p>
+                    <div class="bg-cyber-black p-3 rounded border border-cyber-border space-y-1 my-3 text-xs">
+                        <div><strong>CONTRACT HASH:</strong> <span class="text-cyber-green">0x409177A0198001VOID77</span></div>
+                        <div><strong>FEATURE:</strong> Full loot drops, neural sanity meter, rift anomaly events</div>
+                        <div><strong>SECRET BETA CODE:</strong> <span class="text-cyber-yellow font-bold">VOID-ZERO-EXTRACT-99</span></div>
+                    </div>
+                    <p class="text-gray-400">CLASSIFIED LORE: The anomaly rift devours light and sound. Only operatives equipped with cybernetic sonar echo blades can navigate the deep void vaults.</p>
+                `
+            },
+            deadmanprotocol: {
+                title: 'DEADMAN PROTOCOL',
+                id: '#DP-0001-RESTRICTED',
+                hash: '0xDEAD...PROTO404',
+                betaCode: 'DEADMAN-SWITCH-KEY-404',
+                content: `
+                    <p class="text-cyber-yellow"><strong>SUMMARY:</strong> Immersive first-person psychological horror simulator where you hack corrupt orbital defense switches.</p>
+                    <div class="bg-cyber-black p-3 rounded border border-cyber-border space-y-1 my-3 text-xs">
+                        <div><strong>CONTRACT HASH:</strong> <span class="text-cyber-green">0xDEAD404PROTOCOL881920</span></div>
+                        <div><strong>AI MODEL:</strong> Neural Corrupted LLM System Interface</div>
+                        <div><strong>SECRET ACCESS KEY:</strong> <span class="text-cyber-yellow font-bold">DEADMAN-SWITCH-KEY-404</span></div>
+                    </div>
+                    <p class="text-gray-400">CLASSIFIED LORE: If the operator fails to input the decryption sequence every 24 hours, the orbital laser defense matrix triggers autonomous containment protocol.</p>
+                `
+            },
+            nekomatrix: {
+                title: 'NEKO MATRIX // OVERDRIVE',
+                id: '#NM-8831-BETA',
+                hash: '0x8831...NEKO99',
+                betaCode: 'NEKO-BEAT-OVERDRIVE-77',
+                content: `
+                    <p class="text-cyber-green"><strong>SUMMARY:</strong> Rhythm cybernetic slasher styled with high-octane darksynth OST beats.</p>
+                    <div class="bg-cyber-black p-3 rounded border border-cyber-border space-y-1 my-3 text-xs">
+                        <div><strong>CONTRACT HASH:</strong> <span class="text-cyber-green">0x883199NEKOMATRIX001</span></div>
+                        <div><strong>AUDIO SYNTH:</strong> 32-Bit Lossless Spatial Darksynth Audio</div>
+                        <div><strong>SECRET BETA CODE:</strong> <span class="text-cyber-yellow font-bold">NEKO-BEAT-OVERDRIVE-77</span></div>
+                    </div>
+                    <p class="text-gray-400">CLASSIFIED LORE: Combines precise frame-perfect rhythm parries with flashy katana combos. Dynamic adaptive synthwave tempo matches your combat combo multiplier.</p>
+                `
+            }
+        };
+
+        let currentActiveBetaKey = '';
+
+        function openDossier(key) {
+            playCyberGlitchSound();
+            const data = dossiers[key];
+            if (data) {
+                document.getElementById('modal-title').innerText = data.title;
+                document.getElementById('modal-body').innerHTML = data.content;
+                currentActiveBetaKey = data.betaCode;
+                document.getElementById('dossier-modal').classList.remove('hidden');
+            }
+        }
+
+        function closeDossier() {
+            playSynthBeep(400, 'sine', 0.08);
+            document.getElementById('dossier-modal').classList.add('hidden');
+        }
+
+        function copyBetaKey() {
+            if (currentActiveBetaKey) {
+                copyToClipboard(currentActiveBetaKey);
+                showToast(`ACCESS CODE COPIED: ${currentActiveBetaKey}`, 'green');
+                playSynthBeep(1000, 'square', 0.1);
+            }
+        }
+
+        // Vault Filtering Tabs
+        const filterBtns = document.querySelectorAll('.vault-filter-btn');
+        const gameCards = document.querySelectorAll('.game-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                playSynthBeep(750, 'sine', 0.05);
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-cyber-cyan', 'text-black');
+                    b.classList.add('bg-cyber-dark', 'text-gray-400');
+                });
+                btn.classList.add('active', 'bg-cyber-cyan', 'text-black');
+                btn.classList.remove('bg-cyber-dark', 'text-gray-400');
+
+                const filter = btn.dataset.filter;
+                gameCards.forEach(card => {
+                    if (filter === 'all' || card.classList.contains(`game-${filter}`)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Creator Portal Submission Handling
+        function handlePortalSubmit(e) {
+            e.preventDefault();
+            playCyberGlitchSound();
+
+            const handle = document.getElementById('handle-input').value;
+            const platform = document.getElementById('platform-select').value;
+            const consoleBox = document.getElementById('transmission-console');
+            const logBox = document.getElementById('trans-log');
+            const statusText = document.getElementById('trans-status');
+
+            consoleBox.classList.remove('hidden');
+            logBox.innerHTML = '';
+            statusText.innerText = 'ENCRYPTING...';
+            statusText.className = 'text-cyber-yellow animate-pulse';
+
+            const steps = [
+                `> Initiating TLS 1.3 encrypted tunnel to GR8MEOW node...`,
+                `> Verifying operator handle: @${handle} [${platform}]`,
+                `> Generating 4096-bit RSA asymmetric handshake...`,
+                `> Uploading credentials & portfolio validation packet...`,
+                `> Encrypted transmission successful! Access token granted.`
+            ];
+
+            let stepIdx = 0;
+            const interval = setInterval(() => {
+                if (stepIdx < steps.length) {
+                    const p = document.createElement('p');
+                    p.innerText = steps[stepIdx];
+                    logBox.appendChild(p);
+                    logBox.scrollTop = logBox.scrollHeight;
+                    playSynthBeep(800 + stepIdx * 100, 'sine', 0.05);
+                    stepIdx++;
+                } else {
+                    clearInterval(interval);
+                    statusText.innerText = 'TRANSMISSION CONFIRMED';
+                    statusText.className = 'text-cyber-green font-bold';
+                    showToast(`TRANSMISSION RECEIVED FOR @${handle}`, 'green');
+                }
+            }, 400);
+        }
+
+        // Clipboard Helper Function
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                } catch (err) {}
+                document.body.removeChild(textArea);
+            }
+        }
+
+        // Copy Contract Address Action
+        function copyContractAddress() {
+            const contract = "0x89F2A109C487E120B800F391AD823E4091DEAD404";
+            copyToClipboard(contract);
+            playSynthBeep(1100, 'square', 0.08);
+            showToast("CONTRACT ADDRESS COPIED TO CLIPBOARD", "cyan");
+        }
+
+        // Toast Notification System
+        function showToast(message, color = 'cyan') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const colorClass = color === 'cyan' ? 'border-cyber-cyan text-cyber-cyan' :
+                             color === 'magenta' ? 'border-cyber-magenta text-cyber-magenta' : 'border-cyber-green text-cyber-green';
+
+            toast.className = `cyber-glass border ${colorClass} px-4 py-3 rounded shadow-lg font-mono text-xs flex items-center space-x-2 animate-bounce pointer-events-auto`;
+            toast.innerHTML = `<i class="fas fa-terminal"></i> <span>${message}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        // Live Network Ping & Uptime Simulation
+        function startNetworkPingSimulation() {
+            setInterval(() => {
+                const pingEl = document.getElementById('ping-val');
+                if (pingEl) {
+                    const newPing = Math.floor(Math.random() * 8) + 12;
+                    pingEl.innerText = newPing;
+                }
+
+                // Slight fluctuation in member count
+                const memberEl = document.getElementById('member-counter');
+                const mobileMemberEl = document.getElementById('mobile-member-counter');
+                if (memberEl) {
+                    const base = 114507;
+                    const jitter = Math.floor((Math.random() - 0.5) * 14);
+                    const formatted = (base + jitter).toLocaleString();
+                    memberEl.innerText = formatted;
+                    if (mobileMemberEl) mobileMemberEl.innerText = `${formatted} ONLINE`;
+                }
+            }, 3000);
+        }
+
+        // Mobile Menu Drawer Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                playSynthBeep(500, 'sawtooth', 0.05);
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+    </script>
+</body>
+</html>
